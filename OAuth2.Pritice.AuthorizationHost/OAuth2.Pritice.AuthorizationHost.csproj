@@ -219,6 +219,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+    <Content Include="Certificates\README.md" />
+    <Content Include="Certificates\signserver.cer" />
+    <Content Include="Certificates\signserver.pfx" />
+    <None Include="Properties\PublishProfiles\DeployConfig.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

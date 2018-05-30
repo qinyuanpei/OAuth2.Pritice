@@ -49,12 +49,19 @@ namespace OAuth2.Pritice.AuthorizationHost.Authorization
 
         public bool IsCallbackAllowed(Uri callback)
         {
-            return string.IsNullOrEmpty(this.Callback);
+            if (string.IsNullOrEmpty(this.Callback)) return true;
+            Uri acceptableCallbackPattern = new Uri(this.Callback);
+            if (string.Equals(acceptableCallbackPattern.GetLeftPart(UriPartial.Authority), callback.GetLeftPart(UriPartial.Authority), StringComparison.Ordinal))
+            {
+                return true;
+            }
+
+          return false;
         }
 
         public bool IsValidClientSecret(string secret)
         {
-            return string.IsNullOrEmpty(ClientSecret);
+            return !string.IsNullOrEmpty(ClientSecret);
         }
     }
 }

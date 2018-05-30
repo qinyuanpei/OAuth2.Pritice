@@ -18,6 +18,7 @@ namespace OAuth2.Pritice.AuthorizationHost.Controllers
             )
         );
 
+        [Route("api/auth/token")]
         public async Task<HttpResponseMessage> Create()
         {
             var response = await authorizationServer.HandleTokenRequestAsync(Request);

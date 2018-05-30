@@ -15,12 +15,12 @@ namespace OAuth2.Pritice.AuthorizationHost.Authorization
         /// <summary>
         /// NonceStore
         /// </summary>
-        public INonceStore NonceStore { get; set; }
+        public INonceStore NonceStore { get; }
 
         /// <summary>
         /// Store for CrtptoKey
         /// </summary>
-        public ICryptoKeyStore CryptoKeyStore { get; set; }
+        public ICryptoKeyStore CryptoKeyStore { get; }
 
         /// <summary>
         /// Configuration for Authorization Server
@@ -38,8 +38,8 @@ namespace OAuth2.Pritice.AuthorizationHost.Authorization
 
         public AutomatedAuthorizationCheckResponse CheckAuthorizeClientCredentialsGrant(IAccessTokenRequest accessRequest)
         {
-            var userName = string.IsNullOrEmpty(accessRequest.UserName) ? accessRequest.UserName : accessRequest.ClientIdentifier;
-            var response = new AutomatedUserAuthorizationCheckResponse(accessRequest, true, userName);
+            //var userName = string.IsNullOrEmpty(accessRequest.UserName) ? accessRequest.UserName : accessRequest.ClientIdentifier;
+            var response = new AutomatedUserAuthorizationCheckResponse(accessRequest, true, "test");
             return response;
         }
 
@@ -73,14 +73,14 @@ namespace OAuth2.Pritice.AuthorizationHost.Authorization
             return new AuthorizationClient()
             {
                 ClientId = clientIdentifier,
-                ClientType = ClientType.Confidential,
-                ClientSecret = Guid.NewGuid().ToString("N")
+                ClientType = ClientType.Public,
+                ClientSecret = "1"
             };
         }
 
         public bool IsAuthorizationValid(IAuthorizationDescription authorization)
         {
-            throw new NotImplementedException();
+            return true;
         }
     }
 }

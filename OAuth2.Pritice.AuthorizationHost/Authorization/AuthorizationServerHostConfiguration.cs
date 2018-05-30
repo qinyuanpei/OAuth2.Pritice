@@ -26,12 +26,6 @@ namespace OAuth2.Pritice.AuthorizationHost.Authorization
         /// <summary>
         /// Default Configuration
         /// </summary>
-        public static AuthorizationServerHostConfiguration Default
-        {
-            get
-            {
-                return new AuthorizationServerHostConfiguration() { TokenLifetime = TimeSpan.FromMinutes(10) };
-            }
-        }
+        public static AuthorizationServerHostConfiguration Default { get; set; }
     }
 }

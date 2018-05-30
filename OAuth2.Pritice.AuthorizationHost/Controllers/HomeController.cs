@@ -10,9 +10,9 @@ namespace OAuth2.Pritice.AuthorizationHost.Controllers
     public class HomeController : ApiController
     {
         // GET: api/Home
-        public string Get()
+        public IEnumerable<string> Get()
         {
-            return "Hello, This is a OAuth2 Pritice.";
+            return new string[] { "Hello, This is a OAuth2 Pritice." };
         }
     }
 }
