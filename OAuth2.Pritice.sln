@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OAuth2.Pritice.Authorizatio
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OAuth2.Pritice.ResourceServer", "OAuth2.Pritice.ResourceServer\OAuth2.Pritice.ResourceServer.csproj", "{660580EF-9DBF-4EEE-BEDF-8C6EE87F04CF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OAuth2.Pritice.JwtAuthorization", "OAuth2.Pritice.JwtAuthorization\OAuth2.Pritice.JwtAuthorization.csproj", "{3D0AC108-E0E6-4727-948A-C03B3464FD66}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{660580EF-9DBF-4EEE-BEDF-8C6EE87F04CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{660580EF-9DBF-4EEE-BEDF-8C6EE87F04CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{660580EF-9DBF-4EEE-BEDF-8C6EE87F04CF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D0AC108-E0E6-4727-948A-C03B3464FD66}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D0AC108-E0E6-4727-948A-C03B3464FD66}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D0AC108-E0E6-4727-948A-C03B3464FD66}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D0AC108-E0E6-4727-948A-C03B3464FD66}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
