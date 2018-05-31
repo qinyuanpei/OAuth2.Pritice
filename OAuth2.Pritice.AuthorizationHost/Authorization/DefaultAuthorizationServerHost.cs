@@ -38,8 +38,8 @@ namespace OAuth2.Pritice.AuthorizationHost.Authorization
 
         public AutomatedAuthorizationCheckResponse CheckAuthorizeClientCredentialsGrant(IAccessTokenRequest accessRequest)
         {
-            //var userName = string.IsNullOrEmpty(accessRequest.UserName) ? accessRequest.UserName : accessRequest.ClientIdentifier;
-            var response = new AutomatedUserAuthorizationCheckResponse(accessRequest, true, "test");
+            var userName = accessRequest.ClientIdentifier;
+            var response = new AutomatedUserAuthorizationCheckResponse(accessRequest, true, userName);
             return response;
         }
 
