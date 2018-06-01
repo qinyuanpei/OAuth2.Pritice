@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Microsoft.Owin;
-using Microsoft.AspNet.Identity.Owin;
 using Owin;
-using OAuth2.Pritice.Providers;
-
+using Microsoft.Owin;
 using Microsoft.Owin.Security.OAuth;
+using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security.Infrastructure;
 
 namespace OAuth2.Pritice
@@ -57,14 +55,14 @@ namespace OAuth2.Pritice
 
         #region Access Token
 
-        private void ReceiveAccessToken(AuthenticationTokenReceiveContext obj)
+        private void ReceiveAccessToken(AuthenticationTokenReceiveContext context)
         {
-            throw new NotImplementedException();
+            context.DeserializeTicket(context.Token);
         }
 
-        private void CreateAccessToken(AuthenticationTokenCreateContext obj)
+        private void CreateAccessToken(AuthenticationTokenCreateContext context)
         {
-            throw new NotImplementedException();
+            context.SetToken(context.SerializeTicket());
         }
 
         #endregion

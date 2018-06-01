@@ -1,14 +1,17 @@
-﻿using System;
+﻿using Owin;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 
 namespace OAuth2.Pritice
 {
-    public static class WebApiConfig
+    public partial class Startup
     {
-        public static void Register(HttpConfiguration config)
+        public void ConfigureWebApi(IAppBuilder app)
         {
+            var config = new HttpConfiguration();
+
             // Web API 配置和服务
 
             // Web API 路由
