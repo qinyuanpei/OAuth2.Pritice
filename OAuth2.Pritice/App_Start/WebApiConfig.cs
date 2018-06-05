@@ -8,7 +8,7 @@ namespace OAuth2.Pritice
 {
     public partial class Startup
     {
-        public void ConfigureWebApi(IAppBuilder app)
+        public static void ConfigureWebApi(HttpConfiguration configuration = null)
         {
             var config = new HttpConfiguration();
 

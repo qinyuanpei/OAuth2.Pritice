@@ -5,6 +5,7 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security.OAuth;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security.Infrastructure;
+using OAuth2.Pritice.Providers;
 
 namespace OAuth2.Pritice
 {
@@ -16,40 +17,24 @@ namespace OAuth2.Pritice
             {
                 AllowInsecureHttp = true,
                 ApplicationCanDisplayErrors = true,
-                AuthorizeEndpointPath = new PathString("/auth"),
-                TokenEndpointPath = new PathString("/auth/token"),
+                AuthorizeEndpointPath = new PathString("/oauth2/authorize"),
+                TokenEndpointPath = new PathString("/oauth2/token"),
 
                 //Authorization Server
-                Provider = new OAuthAuthorizationServerProvider
-                {
-                    OnValidateClientRedirectUri = ValidateClientRedirectUri,
-                    OnValidateClientAuthentication = ValidateClientAuthentication,
-                    OnGrantResourceOwnerCredentials = GrantResourceOwnerCredentials,
-                    OnGrantClientCredentials = GrantClientCredetails
-                },
-
+                Provider = new BasicAuthorizationServerProvider(),
+                
                 //Authorization Code
-                AuthorizationCodeProvider = new AuthenticationTokenProvider
-                {
-                    OnCreate = CreateAuthenticationCode,
-                    OnReceive = ReceiveAuthenticationCode
-                },
-
+                AuthorizationCodeProvider = new AuthorizationCodeProvider(),
+                
                 //Access Token
-                AccessTokenProvider = new AuthenticationTokenProvider
-                {
-                    OnCreate = CreateAccessToken,
-                    OnReceive = ReceiveAccessToken
-                },
+                AccessTokenProvider = new AccessTokenProvider(),
+                
 
                 //Refresh Token
-                RefreshTokenProvider = new AuthenticationTokenProvider
-                {
-                    OnCreate = CreateRefreshToken,
-                    OnReceive = ReceiveRefreshToken
-                }
+                RefreshTokenProvider = new RefreshTokenProvider(),
             };
             app.UseOAuthAuthorizationServer(options);
+            app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions());
             app.UseOAuthBearerTokens(options);
         }
 
@@ -97,24 +82,24 @@ namespace OAuth2.Pritice
 
         #region Authorization Server
 
-        private Task GrantClientCredetails(OAuthGrantClientCredentialsContext arg)
+        private Task GrantClientCredetails(OAuthGrantClientCredentialsContext context)
         {
-            throw new NotImplementedException();
+            return Task.FromResult(0);
         }
 
-        private Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext arg)
+        private Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
         {
-            throw new NotImplementedException();
+            return Task.FromResult(0);
         }
 
-        private Task ValidateClientAuthentication(OAuthValidateClientAuthenticationContext arg)
+        private Task ValidateClientAuthentication(OAuthValidateClientAuthenticationContext context)
         {
-            throw new NotImplementedException();
+            return Task.FromResult(0);
         }
 
-        private Task ValidateClientRedirectUri(OAuthValidateClientRedirectUriContext arg)
+        private Task ValidateClientRedirectUri(OAuthValidateClientRedirectUriContext context)
         {
-            throw new NotImplementedException();
+            return Task.FromResult(0);
         }
 
         #endregion
