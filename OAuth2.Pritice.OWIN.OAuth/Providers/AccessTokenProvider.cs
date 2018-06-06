@@ -11,22 +11,24 @@ namespace OAuth2.Pritice.Providers
     {
         public void Create(AuthenticationTokenCreateContext context)
         {
-            throw new NotImplementedException();
+            context.SetToken(context.SerializeTicket());
         }
 
         public Task CreateAsync(AuthenticationTokenCreateContext context)
         {
-            throw new NotImplementedException();
+            context.SetToken(context.SerializeTicket());
+            return Task.FromResult(0);
         }
 
         public void Receive(AuthenticationTokenReceiveContext context)
         {
-            throw new NotImplementedException();
+            context.DeserializeTicket(context.Token);
         }
 
         public Task ReceiveAsync(AuthenticationTokenReceiveContext context)
         {
-            throw new NotImplementedException();
+            context.DeserializeTicket(context.Token);
+            return Task.FromResult(0);
         }
     }
 }

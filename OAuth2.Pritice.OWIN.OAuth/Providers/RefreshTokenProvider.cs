@@ -4,29 +4,35 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Threading.Tasks;
+using System.Collections.Concurrent;
 
 namespace OAuth2.Pritice.Providers
 {
     public class RefreshTokenProvider : IAuthenticationTokenProvider
     {
+        private readonly ConcurrentDictionary<string, string> refreshTokens = new ConcurrentDictionary<string, string>();
+
         public void Create(AuthenticationTokenCreateContext context)
         {
-            throw new NotImplementedException();
+            context.SetToken(Guid.NewGuid().ToString("n"));
+            refreshTokens[context.Token] = context.SerializeTicket();
         }
 
         public Task CreateAsync(AuthenticationTokenCreateContext context)
         {
-            throw new NotImplementedException();
+            return Task.Run(() => Create(context));
         }
 
         public void Receive(AuthenticationTokenReceiveContext context)
         {
-            throw new NotImplementedException();
+            var ticket = string.Empty;
+            var result = refreshTokens.TryRemove(context.Token, out ticket);
+            if (result) context.DeserializeTicket(ticket);
         }
 
         public Task ReceiveAsync(AuthenticationTokenReceiveContext context)
         {
-            throw new NotImplementedException();
+            return Task.Run(() => Receive(context));
         }
     }
 }
