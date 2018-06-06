@@ -16,21 +16,12 @@ namespace OAuth2.Pritice
             var options = new OAuthAuthorizationServerOptions
             {
                 AllowInsecureHttp = true,
-                ApplicationCanDisplayErrors = true,
+                ApplicationCanDisplayErrors = false,
                 AuthorizeEndpointPath = new PathString("/oauth2/authorize"),
                 TokenEndpointPath = new PathString("/oauth2/token"),
-
-                //Authorization Server
                 Provider = new BasicAuthorizationServerProvider(),
-                
-                //Authorization Code
                 AuthorizationCodeProvider = new AuthorizationCodeProvider(),
-                
-                //Access Token
                 AccessTokenProvider = new AccessTokenProvider(),
-                
-
-                //Refresh Token
                 RefreshTokenProvider = new RefreshTokenProvider(),
             };
             app.UseOAuthAuthorizationServer(options);

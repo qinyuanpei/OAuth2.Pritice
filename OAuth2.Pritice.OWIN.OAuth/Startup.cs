@@ -12,9 +12,6 @@ namespace OAuth2.Pritice
     {
         public void Configuration(IAppBuilder app)
         {
-            //配置Web API
-            ConfigureWebApi();
-
             //配置OAuth2
             ConfigureAuth(app);
         }

@@ -12,7 +12,7 @@ namespace OAuth2.Pritice
     {
         protected void Application_Start()
         {
-            GlobalConfiguration.Configure(Startup.ConfigureWebApi);
+            GlobalConfiguration.Configure(WebApiConfig.Register);
         }
     }
 }

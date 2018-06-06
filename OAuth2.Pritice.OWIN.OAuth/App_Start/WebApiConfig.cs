@@ -6,12 +6,10 @@ using System.Web.Http;
 
 namespace OAuth2.Pritice
 {
-    public partial class Startup
+    public static class WebApiConfig
     {
-        public static void ConfigureWebApi(HttpConfiguration configuration = null)
+        public static void Register(HttpConfiguration config)
         {
-            var config = new HttpConfiguration();
-
             // Web API 配置和服务
 
             // Web API 路由
