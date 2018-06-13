@@ -30,7 +30,7 @@ branches:
 addons:
   sonarcloud:
     organization: "qinyuanpei-github" 
-    token: b0d3ab6d8bf3ebce975dfbe53b847ddd3e675e95
+    token: 7f41cf49a541ad9389c990172e21410e604feb9a
     
 cache:
   directories:
