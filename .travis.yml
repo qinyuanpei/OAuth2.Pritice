@@ -1,0 +1,38 @@
+jdk:
+  - oraclejdk8
+mono: 
+  - latest
+
+language: csharp
+solution: ./OAuth2.Pritice.sln
+
+notifications:
+  email:
+    recipients:
+      - 875974254@qq.com
+      - qinyuanpei@163.com
+    on_success: change # default: change
+    on_failure: always # default: always
+
+install:
+  - nuget restore ./OAuth2.Pritice.sln # restore nuget
+#  - nuget install NUnit.Runners -Version 3.8.0 -OutputDirectory ./TestRunner # install nunit
+
+script:
+  - msbuild /p:Configuration=Release ./OAuth2.Pritice.sln
+# - mono ./TestRunner/NUnit.ConsoleRunner.3.8.0/tools/nunit3-console.exe ./HTTPServerLib.UnitTest/bin/Release/HttpServerLib.UnitTest.dll
+  - sonar-scanner -Dsonar.verbose=true -X
+
+branches:
+  only:
+    - master
+
+addons:
+  sonarcloud:
+    organization: "qinyuanpei-github" 
+    token: b0d3ab6d8bf3ebce975dfbe53b847ddd3e675e95
+    
+cache:
+  directories:
+    - '$HOME/.sonar/cache'
+
