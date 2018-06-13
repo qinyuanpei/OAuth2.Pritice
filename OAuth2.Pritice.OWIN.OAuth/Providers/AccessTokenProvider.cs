@@ -16,8 +16,7 @@ namespace OAuth2.Pritice.Providers
 
         public Task CreateAsync(AuthenticationTokenCreateContext context)
         {
-            context.SetToken(context.SerializeTicket());
-            return Task.FromResult(0);
+            return Task.Run(() => Create(context));
         }
 
         public void Receive(AuthenticationTokenReceiveContext context)
@@ -27,8 +26,8 @@ namespace OAuth2.Pritice.Providers
 
         public Task ReceiveAsync(AuthenticationTokenReceiveContext context)
         {
-            context.DeserializeTicket(context.Token);
-            return Task.FromResult(0);
+            return Task.Run(() => Receive(context));
+
         }
     }
 }

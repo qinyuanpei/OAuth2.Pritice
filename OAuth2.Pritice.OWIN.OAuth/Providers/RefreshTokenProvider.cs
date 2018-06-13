@@ -14,7 +14,16 @@ namespace OAuth2.Pritice.Providers
 
         public void Create(AuthenticationTokenCreateContext context)
         {
-            context.SetToken(Guid.NewGuid().ToString("n"));
+            //构造Refresh Token
+            var guid = Guid.NewGuid().ToString("n");
+            var stamp = (int)DateTime.Now.Subtract(new DateTime(1970, 1, 1)).TotalSeconds;
+            var token = guid + stamp;
+
+            //设置Refresh Token
+            context.Ticket.Properties.IssuedUtc = DateTime.UtcNow;
+            context.Ticket.Properties.ExpiresUtc = DateTime.UtcNow.AddHours(12);
+            context.SetToken(token);
+
             refreshTokens[context.Token] = context.SerializeTicket();
         }
 
