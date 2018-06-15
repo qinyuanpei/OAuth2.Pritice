@@ -1,14 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
+using System.Web;
+using System.Web.Mvc;
 
 namespace OAuth2.Pritice.Controllers
 {
-    public class OAuth2Controller : ApiController
+    public class OAuth2Controller : Controller
     {
-       
+        // GET: OAuth2
+        public ActionResult Index()
+        {
+            return View();
+        }
     }
 }
