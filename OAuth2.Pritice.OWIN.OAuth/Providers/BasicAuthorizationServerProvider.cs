@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Threading.Tasks;
 using System.Security.Claims;
+using System.Security.Principal;
 
 namespace OAuth2.Pritice.Providers
 {
@@ -41,7 +42,7 @@ namespace OAuth2.Pritice.Providers
         }
 
         /// <summary>
-        /// 授权服务器对客户端授权逻辑
+        /// 客户端模式下对客户端授权逻辑
         /// </summary>
         /// <param name="context">OAuth上下文</param>
         /// <returns></returns>
@@ -67,6 +68,29 @@ namespace OAuth2.Pritice.Providers
             //Validate identity
             context.Validated(identity);
 
+            return Task.FromResult(0);
+        }
+
+        /// <summary>
+        /// 密码模式下对客户端授权逻辑
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
+        public override Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
+        {
+            var username = context.UserName;
+            var password = context.Password;
+
+            //Todo: select client from ClientRepository
+
+            //Define identity 
+            var identity = new ClaimsIdentity(
+                new GenericIdentity(context.UserName, OAuthDefaults.AuthenticationType),
+                context.Scope.Select(x => new Claim("urn:oauth:scope", x))
+            );
+
+            //Validate identity
+            context.Validated(identity);
             return Task.FromResult(0);
         }
     }
