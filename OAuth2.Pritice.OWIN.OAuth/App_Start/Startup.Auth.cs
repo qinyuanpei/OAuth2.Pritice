@@ -21,7 +21,8 @@ namespace OAuth2.Pritice
                 TokenEndpointPath = new PathString("/oauth2/token"),
                 Provider = new BasicAuthorizationServerProvider(),
                 AuthorizationCodeProvider = new AuthorizationCodeProvider(),
-                AccessTokenProvider = new AccessTokenProvider(),
+                //AccessTokenProvider = new AccessTokenProvider(),
+                AccessTokenProvider = new JwtTokenProvider(),
                 RefreshTokenProvider = new RefreshTokenProvider(),
                 AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(30),
             };

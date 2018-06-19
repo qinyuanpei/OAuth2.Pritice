@@ -259,6 +259,7 @@
     <Compile Include="Providers\AccessTokenProvider.cs" />
     <Compile Include="Providers\AuthorizationCodeProvider.cs" />
     <Compile Include="Providers\BasicAuthorizationServerProvider.cs" />
+    <Compile Include="Providers\JwtTokenProvider.cs" />
     <Compile Include="Providers\RefreshTokenProvider.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -279,6 +280,12 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\OAuth2.Pritice.JwtAuthorization\OAuth2.Pritice.JwtAuthorization.csproj">
+      <Project>{3d0ac108-e0e6-4727-948a-c03b3464fd66}</Project>
+      <Name>OAuth2.Pritice.JwtAuthorization</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
