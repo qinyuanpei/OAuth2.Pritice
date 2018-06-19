@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Net;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
@@ -38,7 +39,9 @@ namespace OAuth2.Pritice.JwtAuthorization
             {
                 Subject = new ClaimsIdentity(new[]
                 {
-                    new Claim(ClaimTypes.Name, clientId)
+                    new Claim(ClaimTypes.NameIdentifier, clientId),
+                    new Claim("host",Dns.GetHostName()),
+                    new Claim("lover","何晓")
                 }),
 
                 Expires = now.AddMinutes(Convert.ToInt32(expireMinutes)),
