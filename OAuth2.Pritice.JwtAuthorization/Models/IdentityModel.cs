@@ -1,10 +1,8 @@
-﻿using System;
-using System.Data.Entity;
-using System.Linq;
-using MySql.Data.Entity;
-
-namespace OAuth2.Pritice.JwtAuthorization.Models
+﻿namespace OAuth2.Pritice.JwtAuthorization.Models
 {
+    using System;
+    using System.Data.Entity;
+    using System.Linq;
 
     public class IdentityModel : DbContext
     {
@@ -17,13 +15,6 @@ namespace OAuth2.Pritice.JwtAuthorization.Models
         public IdentityModel()
             : base("name=IdentityModel")
         {
-
-        }
-
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<IdentityModel>().MapToStoredProcedures();
         }
 
         //为您要在模型中包含的每种实体类型都添加 DbSet。有关配置和使用 Code First  模型
