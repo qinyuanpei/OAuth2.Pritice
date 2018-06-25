@@ -9,7 +9,7 @@ namespace OAuth2.Pritice.JwtAuthorization.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
         }
 
         protected override void Seed(OAuth2.Pritice.JwtAuthorization.Models.IdentityModel context)
@@ -27,5 +27,6 @@ namespace OAuth2.Pritice.JwtAuthorization.Migrations
             //    );
             //
         }
+
     }
 }
