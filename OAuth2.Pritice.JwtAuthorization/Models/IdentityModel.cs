@@ -7,7 +7,6 @@ namespace OAuth2.Pritice.JwtAuthorization.Models
     public class IdentityModel : DbContext
     {
         public IdentityModel()
-            : base("name=IdentityModel")
         {
             
         }

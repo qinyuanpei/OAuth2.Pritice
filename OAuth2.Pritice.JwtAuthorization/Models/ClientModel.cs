@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,6 +9,8 @@ namespace OAuth2.Pritice.JwtAuthorization.Models
 {
     public class ClientModel
     {
+        [Key]
+        public int Id { get; set; }
         /// <summary>
         /// 应用名称
         /// </summary>
