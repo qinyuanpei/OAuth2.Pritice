@@ -12,12 +12,20 @@ namespace EF_MySQL.Console
     {
         static void Main(string[] args)
         {
-            DbConfiguration.SetConfiguration(new MySqlEFConfiguration());
+            Database.SetInitializer(new CreateDatabaseIfNotExists<MyEntity>());
+            //DbConfiguration.SetConfiguration(new MySqlEFConfiguration());
             using (MyEntity db = new MyEntity())
             {
-                var foo = new Foo{ Id = 666, Name = "测试部",Work="BA" };
-                db.Bars.Add(foo);
-                db.SaveChanges();
+                using (var transcation = db.Database.BeginTransaction())
+                {
+                    for(int i=0;i<10000;i++)
+                    {
+                        var foo = new Foo { Id = 666, Name = "测试部", Work = "BA" };
+                        db.Bars.Add(foo);
+                    }
+
+                    db.SaveChanges();
+                }
             }
         }
     }

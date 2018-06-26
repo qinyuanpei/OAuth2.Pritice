@@ -1,18 +1,18 @@
-namespace EF_MySQL.Console.Migrations
+namespace OAuth2.Pritice.Migrations
 {
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<EF_MySQL.Console.MyEntity>
+    internal sealed class Configuration : DbMigrationsConfiguration<OAuth2.Pritice.OWIN.OAuth.Models.IdentityModel>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
         }
 
-        protected override void Seed(EF_MySQL.Console.MyEntity context)
+        protected override void Seed(OAuth2.Pritice.OWIN.OAuth.Models.IdentityModel context)
         {
             //  This method will be called after migrating to the latest version.
 

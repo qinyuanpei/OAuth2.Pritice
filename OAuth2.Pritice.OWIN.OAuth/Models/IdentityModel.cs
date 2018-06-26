@@ -3,7 +3,7 @@ using System;
 using System.Data.Entity;
 using System.Linq;
 
-namespace OAuth2.Pritice.JwtAuthorization.Models
+namespace OAuth2.Pritice.OWIN.OAuth.Models
 {
     [DbConfigurationType(typeof(MySqlEFConfiguration))]
     public class IdentityModel : DbContext
@@ -16,8 +16,8 @@ namespace OAuth2.Pritice.JwtAuthorization.Models
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<UserModel>().MapToStoredProcedures();
-            modelBuilder.Entity<ClientModel>().MapToStoredProcedures();
+            //modelBuilder.Entity<UserModel>().MapToStoredProcedures();
+            //modelBuilder.Entity<ClientModel>().MapToStoredProcedures();
         }
 
         public virtual DbSet<UserModel> Users { get; set; }

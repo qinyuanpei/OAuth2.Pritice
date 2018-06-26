@@ -6,12 +6,21 @@ using System.Web;
 using System.Threading.Tasks;
 using System.Security.Claims;
 using System.Security.Principal;
+using OAuth2.Pritice.JwtAuthorization.Models;
 
 namespace OAuth2.Pritice.Providers
 {
     public class BasicAuthorizationServerProvider : OAuthAuthorizationServerProvider
     {
+        /// <summary>
+        /// client_secret
+        /// </summary>
         private const string SECRET_KEY = "client_secret";
+
+        /// <summary>
+        /// IdentityModel
+        /// </summary>
+        private IdentityModel identityContext = new IdentityModel();
 
         /// <summary>
         /// 授权服务器对客户端验证逻辑
@@ -25,19 +34,20 @@ namespace OAuth2.Pritice.Providers
             var isValidate = context.TryGetBasicCredentials(out clientId, out clientSecret);
             if (!isValidate) context.TryGetFormCredentials(out clientId, out clientSecret);
 
-            //if(string.IsNullOrEmpty(context.ClientId))
-            //{
-            //    context.SetError("invalid client_id", "client_id can not be empty");
-            //    return Task.FromResult(0);
-            //}
+            if (string.IsNullOrEmpty(clientId))
+            {
+                context.SetError("invalid client_id", "client_id can not be empty");
+                return Task.FromResult(0);
+            }
 
-            if(!string.IsNullOrEmpty(clientSecret))
+            if (!string.IsNullOrEmpty(clientSecret))
             {
                 context.OwinContext.Set(SECRET_KEY, clientSecret);
             }
 
-            //Todo: validate client_id via ClientRepository
-            context.Validated();
+            var clientRrpository = identityContext.Clients;
+            var client = clientRrpository.FirstOrDefault(e => e.ClientId == clientId);
+            if (client != null) context.Validated();
             return Task.FromResult(0);
         }
 
@@ -50,23 +60,22 @@ namespace OAuth2.Pritice.Providers
         {
             var client_secret = context.OwinContext.Get<string>(SECRET_KEY);
 
-            //Todo: select client from ClientRepository
-
-            //Define claims via client_id
-            var claims = new List<Claim>()
+            var clientRrpository = identityContext.Clients;
+            var client = clientRrpository.FirstOrDefault(e => e.ClientId == context.ClientId);
+            if (client != null)
             {
-                new Claim(ClaimTypes.NameIdentifier,context.ClientId),
-                //Todo: to add more Claim via Client
-            };
+                var claims = new List<Claim>()
+                {
+                    new Claim(ClaimTypes.NameIdentifier,context.ClientId),
+                };
 
-            //Define identity 
-            var identity = new ClaimsIdentity(
-                claims, 
-                OAuthDefaults.AuthenticationType
-            );
+                var identity = new ClaimsIdentity(
+                    claims,
+                    OAuthDefaults.AuthenticationType
+                );
 
-            //Validate identity
-            context.Validated(identity);
+                context.Validated(identity);
+            }
 
             return Task.FromResult(0);
         }
@@ -81,16 +90,18 @@ namespace OAuth2.Pritice.Providers
             var username = context.UserName;
             var password = context.Password;
 
-            //Todo: select client from ClientRepository
+            var userRrpository = identityContext.Users;
+            var user = userRrpository.FirstOrDefault(e => e.UserName == context.UserName && e.Password == context.Password);
+            if (user != null)
+            {
+                var identity = new ClaimsIdentity(
+                    new GenericIdentity(context.UserName, OAuthDefaults.AuthenticationType),
+                    context.Scope.Select(x => new Claim("urn:oauth:scope", x))
+                );
 
-            //Define identity 
-            var identity = new ClaimsIdentity(
-                new GenericIdentity(context.UserName, OAuthDefaults.AuthenticationType),
-                context.Scope.Select(x => new Claim("urn:oauth:scope", x))
-            );
+                context.Validated(identity);
+            }
 
-            //Validate identity
-            context.Validated(identity);
             return Task.FromResult(0);
         }
     }

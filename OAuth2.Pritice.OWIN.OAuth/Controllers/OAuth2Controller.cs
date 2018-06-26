@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OAuth2.Pritice.JwtAuthorization.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,10 +9,23 @@ namespace OAuth2.Pritice.Controllers
 {
     public class OAuth2Controller : ApiController
     {
-        // GET: OAuth2
-        public string Index()
+        private IdentityModel identityContext = new IdentityModel();
+
+        [HttpPost]
+        [Route("oauth2/register")]
+        public ClientModel Register(dynamic obj)
         {
-            return string.Empty;
+            var client = new ClientModel()
+            {
+                AppName = obj.appName,
+                RedirectURL = obj.redirectURL,
+                ClientId = Guid.NewGuid().ToString("n"),
+                ClientSecret = Guid.NewGuid().ToString("n")
+            };
+
+            identityContext.Clients.Add(client);
+            //identityContext.SaveChanges();
+            return client;
         }
     }
 }

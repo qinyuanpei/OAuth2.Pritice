@@ -1,9 +1,11 @@
 ﻿namespace EF_MySQL.Console
 {
+    using MySql.Data.Entity;
     using System;
     using System.Data.Entity;
     using System.Linq;
 
+    [DbConfigurationType(typeof(MySqlEFConfiguration))]
     public class MyEntity : DbContext
     {
         //您的上下文已配置为从您的应用程序的配置文件(App.config 或 Web.config)
@@ -15,6 +17,7 @@
         public MyEntity()
             : base("name=MyEntity")
         {
+            
         }
 
         //为您要在模型中包含的每种实体类型都添加 DbSet。有关配置和使用 Code First  模型
