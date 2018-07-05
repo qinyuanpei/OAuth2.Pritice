@@ -11,7 +11,7 @@ namespace OAuth2.Pritice.Controllers
     public class OAuth2Controller : ApiController
     {
         private IdentityModel identityContext = new IdentityModel();
-        private RedisAccessProvider redis = new RedisAccessProvider();
+        private RedisStorageProvider redis = new RedisStorageProvider();
 
         [HttpPost]
         [Route("oauth2/register")]
@@ -41,7 +41,7 @@ namespace OAuth2.Pritice.Controllers
         [Route("oauth2/tokens")]
         public IEnumerable<string> Tokens()
         {
-            return redis.All();
+            return redis.All<string>();
         }
             
     }

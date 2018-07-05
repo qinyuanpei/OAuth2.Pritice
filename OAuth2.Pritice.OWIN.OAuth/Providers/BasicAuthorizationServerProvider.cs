@@ -25,7 +25,7 @@ namespace OAuth2.Pritice.Providers
         /// <summary>
         /// Redis Provider
         /// </summary>
-        private RedisAccessProvider redis = new RedisAccessProvider();
+        private RedisStorageProvider redis = new RedisStorageProvider();
 
         /// <summary>
         /// 授权服务器对客户端验证逻辑

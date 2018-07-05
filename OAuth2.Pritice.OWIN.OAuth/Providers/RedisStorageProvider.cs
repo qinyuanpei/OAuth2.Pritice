@@ -8,24 +8,24 @@ using OAuth2.Pritice.Providers;
 
 namespace OAuth2.Pritice.Providers
 {
-    public class RedisAccessProvider
+    public class RedisStorageProvider
     {
         private readonly BasicRedisClientManager clientManager;
 
-        public RedisAccessProvider()
+        public RedisStorageProvider()
         {
             var connectionString = ConfigurationManager.AppSettings["RedisConnectionString"];
             clientManager = new BasicRedisClientManager(connectionString);
         }
 
-        public void Save<TEntity>(RedisStorageModel<TEntity> model,TimeSpan expired)
+        public void Save<TEntity>(TEntity entity,TimeSpan expired)
         {
             using (var client = clientManager.GetClient())
             {
                 var storage = client.As<RedisStorageModel<TEntity>>();
+                var model = new RedisStorageModel<TEntity>(entity);
                 model.Id = storage.GetNextSequence();
                 storage.Store(model);
-                client.Save();
             }
         }
 
@@ -49,12 +49,12 @@ namespace OAuth2.Pritice.Providers
             }
         }
 
-        public IEnumerable<string> All()
+        public IEnumerable<TEntity> All<TEntity>()
         {
             using (var client = clientManager.GetClient())
             {
-                var keys = client.GetAllKeys();
-                return keys.Select(k => client.Get<string>(k)).ToList();
+                var storage = client.As<RedisStorageModel<TEntity>>();
+                return storage.GetAll().Select(e => e.Value);
             }
         }
     }
