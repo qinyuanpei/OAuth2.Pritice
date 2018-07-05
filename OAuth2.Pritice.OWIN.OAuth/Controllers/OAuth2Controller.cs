@@ -24,8 +24,16 @@ namespace OAuth2.Pritice.Controllers
             };
 
             identityContext.Clients.Add(client);
-            //identityContext.SaveChanges();
+            identityContext.SaveChanges();
             return client;
         }
+
+        [HttpGet]
+        [Route("oauth2/clients")]
+        public IEnumerable<ClientModel> All()
+        {
+            return identityContext.Clients.ToList();
+        }
+            
     }
 }

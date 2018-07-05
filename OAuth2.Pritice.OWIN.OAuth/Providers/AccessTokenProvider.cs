@@ -9,8 +9,13 @@ namespace OAuth2.Pritice.Providers
 {
     public class AccessTokenProvider : IAuthenticationTokenProvider
     {
+        private readonly RedisAccessProvider redis = new RedisAccessProvider();
+        private readonly TimeSpan expired = TimeSpan.FromMinutes(10);
+
         public void Create(AuthenticationTokenCreateContext context)
         {
+            var token = context.SerializeTicket();
+            redis.Save<string>(new RedisStorageModel<string>(token), expired);
             context.SetToken(context.SerializeTicket());
         }
 
@@ -27,7 +32,6 @@ namespace OAuth2.Pritice.Providers
         public Task ReceiveAsync(AuthenticationTokenReceiveContext context)
         {
             return Task.Run(() => Receive(context));
-
         }
     }
 }
