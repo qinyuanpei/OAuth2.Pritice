@@ -25,7 +25,16 @@ namespace OAuth2.Pritice.Providers
                 var storage = client.As<RedisStorageModel<TEntity>>();
                 model.Id = storage.GetNextSequence();
                 storage.Store(model);
-                storage.Save();
+                client.Save();
+            }
+        }
+
+        public void Save(string key,string value)
+        {
+            using (var client = clientManager.GetClient())
+            {
+                client.Set<string>(key, value);
+                client.Save();
             }
         }
 
@@ -40,12 +49,12 @@ namespace OAuth2.Pritice.Providers
             }
         }
 
-        public IEnumerable<TEntity> All<TEntity>()
+        public IEnumerable<string> All()
         {
             using (var client = clientManager.GetClient())
             {
-                var storage = client.As<RedisStorageModel<TEntity>>();
-                return storage.GetAll().Select(e => e.Value).ToList();
+                var keys = client.GetAllKeys();
+                return keys.Select(k => client.Get<string>(k)).ToList();
             }
         }
     }

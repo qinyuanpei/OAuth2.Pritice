@@ -23,6 +23,11 @@ namespace OAuth2.Pritice.Providers
         private IdentityModel identityContext = new IdentityModel();
 
         /// <summary>
+        /// Redis Provider
+        /// </summary>
+        private RedisAccessProvider redis = new RedisAccessProvider();
+
+        /// <summary>
         /// 授权服务器对客户端验证逻辑
         /// </summary>
         /// <param name="context">OAuth上下文</param>

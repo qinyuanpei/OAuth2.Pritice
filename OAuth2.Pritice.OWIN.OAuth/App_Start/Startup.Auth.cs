@@ -22,7 +22,7 @@ namespace OAuth2.Pritice
                 Provider = new BasicAuthorizationServerProvider(),
                 AuthorizationCodeProvider = new AuthorizationCodeProvider(),
                 //AccessTokenProvider = new AccessTokenProvider(),
-                AccessTokenProvider = new JwtTokenProvider(),
+                AccessTokenProvider = new AccessTokenProvider(),
                 RefreshTokenProvider = new RefreshTokenProvider(),
                 AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(30),
             };
