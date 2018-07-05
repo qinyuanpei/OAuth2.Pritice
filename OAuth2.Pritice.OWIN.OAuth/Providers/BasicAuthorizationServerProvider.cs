@@ -6,7 +6,7 @@ using System.Web;
 using System.Threading.Tasks;
 using System.Security.Claims;
 using System.Security.Principal;
-using OAuth2.Pritice.JwtAuthorization.Models;
+using OAuth2.Pritice.OWIN.OAuth.Models;
 
 namespace OAuth2.Pritice.Providers
 {

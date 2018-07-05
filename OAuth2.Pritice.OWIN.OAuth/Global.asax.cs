@@ -6,7 +6,7 @@ using System.Web.Http;
 using System.Web.Routing;
 using OAuth2.Pritice;
 using System.Data.Entity;
-using OAuth2.Pritice.JwtAuthorization.Models;
+using OAuth2.Pritice.OWIN.OAuth.Models;
 
 namespace OAuth2.Pritice
 {

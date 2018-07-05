@@ -29,6 +29,7 @@ namespace OAuth2.Pritice.Providers
             }
         }
 
+
         public void Delete<TEntity>(long id)
         {
             using (var client = clientManager.GetClient())
@@ -36,6 +37,15 @@ namespace OAuth2.Pritice.Providers
                 var storage = client.As<TEntity>();
                 storage.DeleteById(id);
                 storage.Save();
+            }
+        }
+
+        public IEnumerable<TEntity> All<TEntity>()
+        {
+            using (var client = clientManager.GetClient())
+            {
+                var storage = client.As<RedisStorageModel<TEntity>>();
+                return storage.GetAll().Select(e => e.Value).ToList();
             }
         }
     }
