@@ -41,7 +41,7 @@ namespace OAuth2.Pritice.Controllers
         [Route("oauth2/tokens")]
         public IEnumerable<string> Tokens()
         {
-            return redis.All<string>();
+            return redis.GetAll<string>();
         }
             
     }

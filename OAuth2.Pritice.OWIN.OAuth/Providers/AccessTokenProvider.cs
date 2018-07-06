@@ -15,7 +15,7 @@ namespace OAuth2.Pritice.Providers
         public void Create(AuthenticationTokenCreateContext context)
         {
             var token = context.SerializeTicket();
-            redis.Save<string>(token, expired);
+            redis.Set<string>(token, expired);
             context.SetToken(context.SerializeTicket());
         }
 

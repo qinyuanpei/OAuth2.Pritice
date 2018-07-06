@@ -284,7 +284,7 @@
     <Compile Include="Providers\AccessTokenProvider.cs" />
     <Compile Include="Providers\AuthorizationCodeProvider.cs" />
     <Compile Include="Providers\BasicAuthorizationServerProvider.cs" />
-    <Compile Include="Providers\RedisStorageModel.cs" />
+    <Compile Include="Models\RedisStorageModel.cs" />
     <Compile Include="Providers\JwtTokenProvider.cs" />
     <Compile Include="Providers\RedisStorageProvider.cs" />
     <Compile Include="Providers\RefreshTokenProvider.cs" />
