@@ -31,13 +31,15 @@ namespace OAuth2.Pritice.Providers
         /// <typeparam name="TEntity">TEntity</typeparam>
         /// <param name="entity">instance of TEntity</param>
         /// <param name="expired">expired time</param>
-        public void Set<TEntity>(TEntity entity,TimeSpan expired)
+        public void Set<TEntity>(TEntity entity,DateTime datetime)
         {
             using (var client = clientManager.GetClient())
             {
                 var storage = client.As<RedisStorageModel<TEntity>>();
                 var model = new RedisStorageModel<TEntity>(entity);
                 model.Id = storage.GetNextSequence();
+                if (datetime != null)
+                    storage.ExpireAt(model.Id, datetime);
                 storage.Store(model);
             }
         }
@@ -97,7 +99,7 @@ namespace OAuth2.Pritice.Providers
             using (var client = clientManager.GetClient())
             {
                 var storage = client.As<RedisStorageModel<TEntity>>();
-                return storage.GetAll().Select(e => e.Value);
+                return storage.GetAll().Select(e => e.Value).Where(e=>e!=null);
             }
         }
 
