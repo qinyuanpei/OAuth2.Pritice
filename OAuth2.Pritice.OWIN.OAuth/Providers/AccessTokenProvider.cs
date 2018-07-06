@@ -18,7 +18,7 @@ namespace OAuth2.Pritice.Providers
             var tokenModel = new TokenModel();
             tokenModel.Token = context.SerializeTicket();
             tokenModel.CreateTime = DateTime.Now;
-            tokenModel.ExpireTine = tokenModel.CreateTime.AddMinutes(10);
+            tokenModel.ExpireTine = tokenModel.CreateTime.AddMinutes(1);
             redis.Set<TokenModel>(tokenModel, tokenModel.ExpireTine);
             context.SetToken(tokenModel.Token);
         }

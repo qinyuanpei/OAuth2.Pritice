@@ -38,8 +38,7 @@ namespace OAuth2.Pritice.Providers
                 var storage = client.As<RedisStorageModel<TEntity>>();
                 var model = new RedisStorageModel<TEntity>(entity);
                 model.Id = storage.GetNextSequence();
-                if (datetime != null)
-                    storage.ExpireAt(model.Id, datetime);
+                storage.ExpireAt(model.Id, datetime);
                 storage.Store(model);
             }
         }
@@ -113,7 +112,7 @@ namespace OAuth2.Pritice.Providers
         {
             using (var client = clientManager.GetClient())
             {
-                var storage = client.As<TEntity>();
+                var storage = client.As<RedisStorageModel<TEntity>>();
                 storage.DeleteById(id);
             }
         }
@@ -127,7 +126,7 @@ namespace OAuth2.Pritice.Providers
         {
             using (var client = clientManager.GetClient())
             {
-                var storage = client.As<TEntity>();
+                var storage = client.As<RedisStorageModel<TEntity>>();
                 storage.DeleteAll();
             }
         }

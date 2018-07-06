@@ -33,16 +33,30 @@ namespace OAuth2.Pritice.Controllers
 
         [HttpGet]
         [Route("oauth2/clients")]
-        public IEnumerable<ClientModel> All()
+        public IEnumerable<ClientModel> GetAllClients()
         {
             return identityContext.Clients.ToList();
         }
 
         [HttpGet]
         [Route("oauth2/tokens")]
-        public IEnumerable<TokenModel> Tokens()
+        public IEnumerable<TokenModel> GetAllToken()
         {
             return redis.GetAll<TokenModel>();
+        }
+
+        [HttpDelete]
+        [Route("oauth2/tokens")]
+        public void DeleteAllTokens()
+        {
+            redis.DeleteAll<TokenModel>();
+        }
+
+        [HttpDelete]
+        [Route("oauth2/tokens/{id}")]
+        public void DeleteToken(long id)
+        {
+            redis.Delete<TokenModel>(id);
         }
             
     }
