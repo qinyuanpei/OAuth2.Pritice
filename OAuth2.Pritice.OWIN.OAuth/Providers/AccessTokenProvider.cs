@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Threading.Tasks;
+using OAuth2.Pritice.Models;
 
 namespace OAuth2.Pritice.Providers
 {
@@ -14,9 +15,12 @@ namespace OAuth2.Pritice.Providers
 
         public void Create(AuthenticationTokenCreateContext context)
         {
-            var token = context.SerializeTicket();
-            redis.Set<string>(token, expired);
-            context.SetToken(context.SerializeTicket());
+            var tokenModel = new TokenModel();
+            tokenModel.Token = context.SerializeTicket();
+            tokenModel.CreateTime = DateTime.Now;
+            tokenModel.ExpireTine = tokenModel.CreateTime.AddMinutes(30);
+            redis.Set<TokenModel>(tokenModel, expired);
+            context.SetToken(tokenModel.Token);
         }
 
         public Task CreateAsync(AuthenticationTokenCreateContext context)

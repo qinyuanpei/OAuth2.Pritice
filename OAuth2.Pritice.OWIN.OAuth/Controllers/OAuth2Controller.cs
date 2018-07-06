@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Http;
 using OAuth2.Pritice.Providers;
+using OAuth2.Pritice.Models;
 
 namespace OAuth2.Pritice.Controllers
 {
@@ -39,9 +40,9 @@ namespace OAuth2.Pritice.Controllers
 
         [HttpGet]
         [Route("oauth2/tokens")]
-        public IEnumerable<string> Tokens()
+        public IEnumerable<TokenModel> Tokens()
         {
-            return redis.GetAll<string>();
+            return redis.GetAll<TokenModel>();
         }
             
     }
